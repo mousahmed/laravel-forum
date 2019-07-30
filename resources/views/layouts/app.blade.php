@@ -35,7 +35,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-
+                   <li class="nav-link"> <a href="{{route('discussions.index')}}">Discussions</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -79,10 +79,22 @@
             @include('partials.sessions')
             <div class="row">
                 <div class="col-md-3">
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="{{route('channels.index')}}">Channels</a></li>
-                        <li class="list-group-item"><a href="{{route('discussions.index')}}">Discussions</a></li>
-                    </ul>
+
+                    <div>
+                        <div class=" mb-2" >
+                            <a style="width: 100%" href="{{route('discussions.create')}}" class="btn btn-primary">Add Discussion</a>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Channels</div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    @foreach($channels as $channel)
+                                        <li class="list-group-item"><a href="">{{$channel->name}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-9">
                     @yield('content')

@@ -6,20 +6,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use LaravelForum\Channel;
 
-
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-        View::share('channels',Channel::all());
-    }
-
     /**
      * Register any application services.
      *
@@ -28,5 +16,16 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+        View::share(['channels' => Channel::all()]);
     }
 }

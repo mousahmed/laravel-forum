@@ -7,6 +7,10 @@ use LaravelForum\Channel;
 
 class ChannelsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create','store','edit','update','delete']);
+    }
     /**
      * Display a listing of the resource.
      *

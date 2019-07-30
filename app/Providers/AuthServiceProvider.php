@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'LaravelForum\Model' => 'LaravelForum\Policies\ModelPolicy',
+        // 'LaravelForum\Model' => 'LaravelForum\Policies\ModelPolicy',
     ];
 
     /**
