@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
                 $user->discussions()->save(factory(Discussion::class)->create());
             }
         })->each(function ($user) {
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 $user->replies()->save(factory(Reply::class)->create());
             }
         });

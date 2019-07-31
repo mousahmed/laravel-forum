@@ -24,6 +24,28 @@
             <hr>
 
             {!! $discussion->content !!}
+
+            @if($discussion->bestReply)
+                <hr>
+                <div class="card bg-success my-3" style="color: white">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <img width="40px" height="40px" style="border-radius: 50%"
+                                     src="{{Gravatar::src($discussion->bestReply->user->email)}}" alt="">
+                                <span class="ml-2 font-weight-bold">{{$discussion->bestReply->user->name}}</span>
+                            </div>
+                            <div class="mt-2">
+                                <strong >Best Reply</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        {!! $discussion->bestReply->content !!}
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     @if($discussion->replies->count() > 0)
@@ -36,6 +58,16 @@
                                  src="{{Gravatar::src($reply->user->email)}}" alt="">
                             <span class="ml-2 font-weight-bold">{{$reply->user->name}}</span>
                         </div>
+                        @if(auth()->user()->id == $discussion->user->id )
+                            <div>
+                                <form
+                                    action="{{route('discussions.best-reply',['discussion'=>$discussion->slug,'rely'=>$reply->id])}}"
+                                    method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Mark As Best Reply</button>
+                                </form>
+                            </div>
+                        @endif
 
                     </div>
                 </div>

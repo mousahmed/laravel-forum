@@ -20,6 +20,7 @@ class CreateDiscussionsTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('channel_id');
             $table->string('slug')->unique();
+            $table->integer('reply_id')->nullable();
             $table->timestamps();
         });
     }

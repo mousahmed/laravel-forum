@@ -5,13 +5,15 @@ namespace LaravelForum\Http\Controllers;
 use Illuminate\Http\Request;
 use LaravelForum\Discussion;
 use LaravelForum\Http\Requests\Discussions\CreateDiscussionsRequest;
+use LaravelForum\Reply;
 
 class DiscussionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only(['create','store','edit','update','delete']);
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'delete']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +49,7 @@ class DiscussionsController extends Controller
         $data = $request->only(['title', 'content', 'slug', 'channel_id']);
         $data['slug'] = str_slug($request->title);
         auth()->user()->discussions()->create($data);
-        session()->flash('success','The discussions has been created successfully');
+        session()->flash('success', 'The discussions has been created successfully');
         return redirect(route('discussions.index'));
     }
 
@@ -60,7 +62,13 @@ class DiscussionsController extends Controller
     public function show(Discussion $discussion)
     {
         //
-        return view('discussions.show',compact('discussion'));
+        return view('discussions.show', compact('discussion'));
+    }
+
+    public function reply(Discussion $discussion,Reply $reply)
+    {
+        $discussion->markAsBestReply($reply);
+        return redirect()->back();
     }
 
     /**
@@ -96,4 +104,5 @@ class DiscussionsController extends Controller
     {
         //
     }
+
 }
