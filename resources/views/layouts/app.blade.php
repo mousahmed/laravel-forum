@@ -35,7 +35,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                   <li class="nav-link"> <a href="{{route('discussions.index')}}">Discussions</a></li>
+                    <li class="nav-link"><a href="{{route('discussions.index')}}">Discussions</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -74,16 +74,24 @@
         </div>
     </nav>
 
-    @auth
+    @if(!in_array(request()->path(),['login','register','password/email','password/reset']))
         <main class="container py-4">
             @include('partials.sessions')
             <div class="row">
                 <div class="col-md-3">
 
                     <div>
-                        <div class=" mb-2" >
-                            <a style="width: 100%" href="{{route('discussions.create')}}" class="btn btn-primary">Add Discussion</a>
-                        </div>
+                        @auth
+                            <div class=" mb-2">
+                                <a style="width: 100%" href="{{route('discussions.create')}}" class="btn btn-primary">Add
+                                    Discussion</a>
+                            </div>
+                        @else
+                            <div class=" mb-2">
+                                <a style="width: 100%" href="{{route('login')}}" class="btn btn-primary">Sign in To Add
+                                    Discussions</a>
+                            </div>
+                        @endauth
                         <div class="card">
                             <div class="card-header">Channels</div>
                             <div class="card-body">
@@ -96,6 +104,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-9">
                     @yield('content')
                 </div>
@@ -105,7 +114,8 @@
         <main class="py-4">
             @yield('content')
         </main>
-    @endauth
+    @endif
+
 </div>
 
 <!-- Scripts -->
