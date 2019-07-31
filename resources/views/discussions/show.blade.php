@@ -26,7 +26,29 @@
             {!! $discussion->content !!}
         </div>
     </div>
+    @if($discussion->replies->count() > 0)
+        @foreach($discussion->replies()->paginate(3) as $reply)
+            <div class="card my-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <img width="40px" height="40px" style="border-radius: 50%"
+                                 src="{{Gravatar::src($reply->user->email)}}" alt="">
+                            <span class="ml-2 font-weight-bold">{{$reply->user->name}}</span>
+                        </div>
 
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {!! $reply->content !!}
+                </div>
+            </div>
+        @endforeach
+        <div class="d-flex justify-content-center mt-2">
+            {{$discussion->replies()->paginate(3)->links()}}
+        </div>
+    @endif
     <div class="card mt-4">
         <div class="card-header">
             Add a Reply
@@ -47,7 +69,7 @@
                     </div>
                 </form>
             @else
-                <a href="{{route('login')}}"  class="btn btn-info"><strong>Sign In To Reply</strong></a>
+                <a href="{{route('login')}}" class="btn btn-info"><strong>Sign In To Reply</strong></a>
             @endauth
         </div>
     </div>

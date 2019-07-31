@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use LaravelForum\Discussion;
+use LaravelForum\Reply;
 use LaravelForum\User;
 
 class UsersTableSeeder extends Seeder
@@ -15,15 +16,22 @@ class UsersTableSeeder extends Seeder
     {
         //
         factory(User::class, 4)->create()->each(function ($user) {
-            for($i = 0 ;$i < 5 ; $i++) {
+            for ($i = 0; $i < 5; $i++) {
                 $user->discussions()->save(factory(Discussion::class)->create());
+            }
+        })->each(function ($user) {
+            for ($i = 0; $i < 5; $i++) {
+                $user->replies()->save(factory(Reply::class)->create());
             }
         });
         User::create([
             'name' => 'Moustafa Ahmed',
-            'email' =>'moustafa@gmail.com',
+            'email' => 'mous.ahmed@outlook.com',
             'password' => bcrypt('123456'),
             'remember_token' => str_random(10),
         ])->discussions()->save(factory(Discussion::class)->create());
+
+
     }
+
 }
