@@ -11,7 +11,7 @@ class DiscussionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'delete']);
+        $this->middleware(['auth','verified'])->only(['create', 'store', 'edit', 'update', 'delete']);
     }
 
     /**
@@ -22,7 +22,7 @@ class DiscussionsController extends Controller
     public function index()
     {
         //
-        return view('discussions.index')->with('discussions', Discussion::paginate(10));
+        return view('discussions.index')->with('discussions', Discussion::filterByChannels()->paginate(10));
     }
 
     /**
@@ -65,7 +65,7 @@ class DiscussionsController extends Controller
         return view('discussions.show', compact('discussion'));
     }
 
-    public function reply(Discussion $discussion,Reply $reply)
+    public function reply(Discussion $discussion, Reply $reply)
     {
         $discussion->markAsBestReply($reply);
         return redirect()->back();
