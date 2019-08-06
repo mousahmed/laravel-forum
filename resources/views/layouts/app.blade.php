@@ -33,9 +33,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link"
-                                                   href="{{route('discussions.index')}}">Discussions</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="{{route('channels.index')}}">Channels</a></li>
+
+                    @auth
+                        <li class="nav-item">
+                            <a href="{{route('notifications')}}" class="nav-link">
+                                <span class="badge text-white badge-info">{{auth()->user()->unreadNotifications->count()}} unread notifications</span>
+                            </a>
+                        </li>
+                    @endauth
+
+                    <li class="nav-item"><a class="nav-link"
+                                            href="{{route('discussions.index')}}">Discussions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('channels.index')}}">Channels</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

@@ -5,6 +5,7 @@ namespace LaravelForum\Http\Controllers;
 use Illuminate\Http\Request;
 use LaravelForum\Discussion;
 use LaravelForum\Http\Requests\Replies\CreateRepliesRequest;
+use LaravelForum\Notifications\NewReplyAdded;
 use LaravelForum\Reply;
 
 class RepliesController extends Controller
@@ -46,6 +47,8 @@ class RepliesController extends Controller
             'discussion_id' => $discussion->id,
 
         ]);
+
+        $discussion->user->notify(new NewReplyAdded($discussion));
         return redirect()->back();
     }
 
