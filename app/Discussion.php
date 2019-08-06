@@ -4,6 +4,8 @@ namespace LaravelForum;
 
 
 
+use LaravelForum\Notifications\ReplyMarkedAsBestReply;
+
 class Discussion extends Model
 {
     //
@@ -27,6 +29,7 @@ class Discussion extends Model
         $this->update([
            'reply_id' => $reply->id,
         ]);
+        $reply->user->notify(new ReplyMarkedAsBestReply($reply->discussion));
     }
     public function bestReply(){
         return $this->belongsTo(Reply::class,'reply_id');

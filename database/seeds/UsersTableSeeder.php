@@ -15,6 +15,12 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //
+        User::create([
+            'name' => 'Moustafa Ahmed',
+            'email' => 'mous.ahmed@outlook.com',
+            'password' => bcrypt('123456'),
+        ])->discussions()->save(factory(Discussion::class)->create());
+
         factory(User::class, 4)->create()->each(function ($user) {
             for ($i = 0; $i < 5; $i++) {
                 $user->discussions()->save(factory(Discussion::class)->create());
@@ -24,12 +30,6 @@ class UsersTableSeeder extends Seeder
                 $user->replies()->save(factory(Reply::class)->create());
             }
         });
-        User::create([
-            'name' => 'Moustafa Ahmed',
-            'email' => 'mous.ahmed@outlook.com',
-            'password' => bcrypt('123456'),
-            'remember_token' => str_random(10),
-        ])->discussions()->save(factory(Discussion::class)->create());
 
 
     }

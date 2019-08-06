@@ -13,7 +13,7 @@
                             <span class="ml-2 font-weight-bold">{{$discussion->user->name}}</span>
                         </div>
                         <div>
-                            <a href="{{route('discussions.show',$discussion->slug)}}" class="btn btn-success">view</a>
+                            <a href="{{route('discussions.show',$discussion->slug)}}" class="btn btn-success"><i class="fa fa-eye"></i> View</a>
                         </div>
                     </div>
                 </div>
